@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <RuntimeFrameworkVersion>2.0.0</RuntimeFrameworkVersion>
     <AssemblyName>Narato.Libraries.POC.DataProvider</AssemblyName>
     <PackageId>Narato.Libraries.POC.DataProvider</PackageId>
     <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
@@ -10,30 +10,25 @@
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
-
   <ItemGroup>
-<!--#if (UseEntityFramework != "none")-->
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0" />
-<!--#endif-->
-<!--#if (UseEntityFramework == "postgres")-->
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.0.0" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="2.0.0-preview1" />
-<!--#endif-->    
-<!--#if (UseEntityFramework != "none")-->
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.1" />
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet">
       <Version>2.0.0</Version>
     </DotNetCliToolReference>
-<!--#endif-->
+    <PackageReference Include="Microsoft.NETCore.App" Version="2.0.5" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Narato.Libraries.POC.Domain\Narato.Libraries.POC.Domain.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="DataProviders\" />
   </ItemGroup>
-
+  <ItemGroup>
+    <Reference Include="Microsoft.Extensions.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.configuration\2.0.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>

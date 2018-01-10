@@ -13,9 +13,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Narato.Libraries.POC.DataProvider.Contexts;
-using Narato.Libraries.POC.DataProvider.DataProviders;
-using Narato.Libraries.POC.Domain.Contracts.DataProviders;
+//using Narato.Libraries.POC.DataProvider.DataProviders;
 using Newtonsoft.Json;
 
 namespace Narato.Libraries.POC.API
@@ -24,6 +24,11 @@ namespace Narato.Libraries.POC.API
     {
         
         public IConfiguration Configuration { get; }
+
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -46,7 +51,7 @@ namespace Narato.Libraries.POC.API
 
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration["DATABASECONFIGURATION:CONNECTIONSTRING"]));
 
-            services.AddTransient<IBookDataProvider, BookDataProvider>();
+            //services.AddTransient<IBookDataProvider, BookDataProvider>();
             //services.AddTransient<IBookManager, BookManager>();
 
             services.AddSwaggerGen();

@@ -6,10 +6,10 @@ using Narato.Libraries.POC.Domain.Contracts.DataProviders;
 
 namespace Narato.Libraries.POC.DataProvider.DataProviders
 {
-    public class BookDataProvider : DataProvider<Book, Guid>, IBookDataProvider
-    {
-        public BookDataProvider(IDataContext dataContext) : base(dataContext)
-        {
-        }
-    }
+    //public class BookDataProvider : DataProvider<Book, Guid>, IBookDataProvider
+    //{
+    //    public BookDataProvider(IDataContext dataContext) : base(dataContext)
+    //    {
+    //    }
+    //}
 }

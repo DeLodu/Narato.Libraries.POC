@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore;
 using NLog.Web;
-using NLog.Extensions.Logging;
 using System;
 
 namespace Narato.Libraries.POC.API
@@ -33,6 +31,8 @@ namespace Narato.Libraries.POC.API
                 {
                     // delete all default configuration providers
                     config.Sources.Clear();
+
+
 
                     var env = hostingContext.HostingEnvironment;
                     config.SetBasePath(env.ContentRootPath)

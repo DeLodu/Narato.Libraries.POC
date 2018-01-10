@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
     <Company>Narato</Company>
     <TargetFramework>netcoreapp2.0</TargetFramework>
@@ -10,30 +9,26 @@
     <PackageId>Narato.Libraries.POC.API</PackageId>
     <AssetTargetFallback>$(AssetTargetFallback);dotnet5.6;portable-net45+win8</AssetTargetFallback>
   </PropertyGroup>
-
   <ItemGroup>
     <None Update="Views;Areas\**\Views;nlog.config">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Narato.Libraries.POC.APIContracts\Narato.Libraries.POC.APIContracts.csproj" />
     <ProjectReference Include="..\Narato.Libraries.POC.Domain\Narato.Libraries.POC.Domain.csproj" />
     <ProjectReference Include="..\Narato.Libraries.POC.DataProvider\Narato.Libraries.POC.DataProvider.csproj" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
+    <PackageReference Include="Microsoft.NETCore.App" Version="2.0.5" />
     <PackageReference Include="Narato.Correlations" Version="2.0.0" />
     <PackageReference Include="Narato.ResponseMiddleware" Version="2.0.0" />
     <PackageReference Include="Narato.ExecutionTimingMiddleware" Version="2.0.0" />
     <PackageReference Include="Narato.Correlations.NlogExtensions" Version="2.0.1" />
     <PackageReference Include="Swashbuckle" Version="6.0.0-beta902" />
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="Controllers\" />
   </ItemGroup>
-
 </Project>

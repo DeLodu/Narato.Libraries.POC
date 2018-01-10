@@ -4,11 +4,14 @@ using Narato.Libraries.POC.Domain.Common;
 
 namespace Narato.Libraries.POC.Domain.Models
 {
-    public class Author : Entity<Guid>
+    public class Author //: Entity<Guid>
     {
+        public Guid Id { get; set; }
+
         public string FirstName { get; set; }
+
         public string LastName { get; set; }
 
-        public ICollection<Book> Books { get; set; }
+        public virtual ICollection<Book> Books { get; set; }
     }
 }

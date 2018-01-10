@@ -11,15 +11,31 @@ namespace Narato.Libraries.POC.DataProvider.Contexts
     {
         public DataContext(DbContextOptions options) : base(options) { }
 
-        #region DBSet properties
+        #region Configs
 
         public DbSet<Book> Books { get; set; }
 
-        public DbSet<Author> Author { get; set; }
+        public DbSet<Author> Authors { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            modelBuilder.Entity<Book>()
+                .HasKey(x => x.Id);
+
+            modelBuilder.Entity<Author>()
+                .HasKey(x => x.Id);
+
+            modelBuilder.Entity<Book>()
+                .HasOne(x => x.Author)
+                .WithMany(x => x.Books)
+                .HasForeignKey(x => x.AuthorID);
+
+        }
 
         #endregion
 
-        #region IDataContext methods
+        #region Methods
 
         public void AddNew<TEntity>(TEntity entity)
             where TEntity : class
