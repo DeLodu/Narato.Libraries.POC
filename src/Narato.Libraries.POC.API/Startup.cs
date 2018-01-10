@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,41 +8,22 @@ using Narato.Correlations;
 using Narato.ExecutionTimingMiddleware;
 using Narato.ResponseMiddleware;
 using Newtonsoft.Json.Serialization;
-using Narato.Libraries.POC.DataProvider.Mappers;
-#if (EnableExample)
-using Narato.Libraries.POC.DataProvider.DataProviders;
-using Narato.Libraries.POC.Domain.Contracts.DataProviders;
-using Narato.Libraries.POC.Domain.Managers;
-using Narato.Libraries.POC.Domain.Managers.Interfaces;
-#endif
 using Swashbuckle.Swagger.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Newtonsoft.Json;
-using Narato.Libraries.POC.API.Mappers;
-#if (EnableEntityFramework)
-using Narato.Libraries.POC.DataProvider.Contexts;
 using Microsoft.EntityFrameworkCore;
-#endif
+using Narato.Libraries.POC.DataProvider.Contexts;
+using Narato.Libraries.POC.DataProvider.DataProviders;
+using Narato.Libraries.POC.Domain.Contracts.DataProviders;
+using Newtonsoft.Json;
 
 namespace Narato.Libraries.POC.API
 {
     public class Startup
     {
-        private MapperConfiguration _mapperConfiguration { get; set; }
+        
         public IConfiguration Configuration { get; }
-
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-            _mapperConfiguration = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new DataProviderAutoMapperProfileConfiguration());
-                cfg.AddProfile(new DTOAutoMapperProfileConfiguration());
-            });
-            _mapperConfiguration.AssertConfigurationIsValid();
-        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -64,23 +44,10 @@ namespace Narato.Libraries.POC.API
                 }
             );
 
-#if (EnableExample)
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration["DATABASECONFIGURATION:CONNECTIONSTRING"]));
+
             services.AddTransient<IBookDataProvider, BookDataProvider>();
-            services.AddTransient<IBookManager, BookManager>();
-#endif
-
-#if (EnableEntityFrameworkPostgres)
-            services.AddEntityFrameworkNpgsql();
-#endif
-#if (EnableEntityFramework)
-            services.AddDbContext<DataContext>(options => {
-    #if (EnableEntityFrameworkPostgres)
-                options.UseNpgsql(Configuration["DatabaseConfiguration:ConnectionString"]);
-    #endif
-            });
-#endif
-
-            services.AddSingleton(sp => _mapperConfiguration.CreateMapper());
+            //services.AddTransient<IBookManager, BookManager>();
 
             services.AddSwaggerGen();
             services.ConfigureSwaggerGen(options =>

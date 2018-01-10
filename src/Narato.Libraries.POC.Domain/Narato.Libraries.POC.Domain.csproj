@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <Folder Include="Contracts\DataProviders\" />
-    <Folder Include="Managers\Interfaces\" />
     <Folder Include="Models\" />
   </ItemGroup>
 
