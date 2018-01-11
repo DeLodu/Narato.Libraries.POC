@@ -10,11 +10,13 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Narato.Libraries.POC.Domain.csproj.DotSettings" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.App" Version="2.0.5" />
     <PackageReference Include="Narato.ResponseMiddleware.Models" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contracts\DataProviders\" />
-    <Folder Include="Models\" />
   </ItemGroup>
 </Project>

@@ -13,6 +13,7 @@
           <e p="appsettings.json" t="Include" />
           <e p="bin" t="ExcludeRecursive" />
           <e p="config.json" t="Include" />
+          <e p="config.json.local" t="Include" />
           <e p="Controllers" t="Include">
             <e p="BooksController.cs" t="Include" />
           </e>
@@ -33,22 +34,15 @@
           <e p="Startup.cs" t="Include" />
           <e p="web.config" t="Include" />
         </e>
-        <e p="Narato.Libraries.POC.APIContracts" t="IncludeRecursive">
+        <e p="Narato.Libraries.POC.Application" t="IncludeRecursive">
           <e p="bin" t="ExcludeRecursive" />
-          <e p="DTO" t="Include">
-            <e p="AuthorDto.cs" t="Include" />
-            <e p="BookDto.cs" t="Include" />
-          </e>
-          <e p="Narato.Libraries.POC.APIContracts.csproj" t="IncludeRecursive" />
+          <e p="Narato.Libraries.POC.Application.csproj" t="IncludeRecursive" />
           <e p="obj" t="ExcludeRecursive">
             <e p="Debug" t="Include">
               <e p="netcoreapp2.0" t="Include">
-                <e p="Narato.Libraries.POC.APIContracts.AssemblyInfo.cs" t="Include" />
+                <e p="Narato.Libraries.POC.Application.AssemblyInfo.cs" t="Include" />
               </e>
             </e>
-          </e>
-          <e p="Properties" t="Include">
-            <e p="AssemblyInfo.cs" t="Include" />
           </e>
         </e>
         <e p="Narato.Libraries.POC.DataProvider" t="IncludeRecursive">
@@ -61,6 +55,11 @@
           </e>
           <e p="DataProviders" t="Include">
             <e p="BookDataProvider.cs" t="Include" />
+          </e>
+          <e p="Migrations" t="Include">
+            <e p="20180110235529_Init.cs" t="Include" />
+            <e p="20180110235529_Init.Designer.cs" t="Include" />
+            <e p="DataContextModelSnapshot.cs" t="Include" />
           </e>
           <e p="Narato.Libraries.POC.DataProvider.csproj" t="IncludeRecursive" />
           <e p="obj" t="ExcludeRecursive">
@@ -79,13 +78,13 @@
           <e p="bin" t="ExcludeRecursive" />
           <e p="Common" t="Include">
             <e p="Entity.cs" t="Include" />
-            <e p="IDataProvider.cs" t="Include" />
           </e>
           <e p="Contracts" t="Include">
             <e p="DataProviders" t="Include">
               <e p="IBookDataProvider.cs" t="Include" />
             </e>
             <e p="IDataContext.cs" t="Include" />
+            <e p="IDataProvider.cs" t="Include" />
           </e>
           <e p="Models" t="Include">
             <e p="Author.cs" t="Include" />

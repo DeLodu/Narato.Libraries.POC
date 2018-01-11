@@ -13,9 +13,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
+using Narato.Libraries.POC.Application.Common;
+using Narato.Libraries.POC.Application.UseCases;
+using Narato.Libraries.POC.Application.UseCases.Books;
 using Narato.Libraries.POC.DataProvider.Contexts;
-//using Narato.Libraries.POC.DataProvider.DataProviders;
+using Narato.Libraries.POC.DataProvider.DataProviders;
+using Narato.Libraries.POC.Domain.Models.Books;
 using Newtonsoft.Json;
 
 namespace Narato.Libraries.POC.API
@@ -51,8 +54,16 @@ namespace Narato.Libraries.POC.API
 
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration["DATABASECONFIGURATION:CONNECTIONSTRING"]));
 
-            //services.AddTransient<IBookDataProvider, BookDataProvider>();
-            //services.AddTransient<IBookManager, BookManager>();
+            // Dataproviders
+            services.AddTransient<IBookDataProvider, BookDataProvider>();
+            services.AddTransient<IAuthorDataProvider, AuthorDataProvider>();
+
+            // Books
+            services.AddTransient<IUseCases<CreateBookRequest, CreateBookResponse>, CreateBookUseCase>();
+            services.AddTransient<IUseCases<DeleteBookRequest, DeleteBookResponse>, DeleteBookUseCase>();
+            services.AddTransient<IUseCases<FindBooksRequest, FindBooksResponse>, FindBooksUseCase>();
+            services.AddTransient<IUseCases<GetBookByIDRequest, GetBookByIDResponse>, GetBookByIDUseCase>();
+            services.AddTransient<IUseCases<UpdateBookRequest, UpdateBookResponse>, UpdateBookUseCase>();
 
             services.AddSwaggerGen();
             services.ConfigureSwaggerGen(options =>

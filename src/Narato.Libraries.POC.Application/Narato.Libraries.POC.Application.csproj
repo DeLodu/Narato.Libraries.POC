@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETCore.App" Version="2.0.5" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Narato.Libraries.POC.Contracts\Narato.Libraries.POC.Contracts.csproj" />
+    <ProjectReference Include="..\Narato.Libraries.POC.Domain\Narato.Libraries.POC.Domain.csproj" />
+  </ItemGroup>
+</Project>

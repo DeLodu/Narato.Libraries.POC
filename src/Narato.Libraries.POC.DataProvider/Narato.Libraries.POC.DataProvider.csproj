@@ -24,9 +24,6 @@
     <ProjectReference Include="..\Narato.Libraries.POC.Domain\Narato.Libraries.POC.Domain.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DataProviders\" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="Microsoft.Extensions.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
       <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.configuration\2.0.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.dll</HintPath>
     </Reference>

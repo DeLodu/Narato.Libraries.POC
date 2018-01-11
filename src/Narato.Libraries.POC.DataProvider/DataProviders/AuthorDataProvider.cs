@@ -5,12 +5,10 @@ using Narato.Libraries.POC.Domain.Models.Books;
 
 namespace Narato.Libraries.POC.DataProvider.DataProviders
 {
-    public class BookDataProvider : DataProvider<Book, Guid>, IBookDataProvider
+    public class AuthorDataProvider : DataProvider<Author, Guid>, IAuthorDataProvider
     {
-        public BookDataProvider(IDataContext dataContext) : base(dataContext)
+        public AuthorDataProvider(IDataContext dataContext) : base(dataContext)
         {
         }
-
- 
     }
 }

@@ -1,19 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Narato.ResponseMiddleware.Models.Models;
-using Narato.Libraries.POC.APIContracts.DTO;
 using System;
 using System.Threading.Tasks;
+using Narato.Libraries.POC.Application.UseCases.Books;
+using Narato.Libraries.POC.API.Common;
+using Narato.Libraries.POC.Contracts.DTO;
 
 namespace Narato.Libraries.POC.API.Controllers
 {
     [Route("api/[controller]")]
-    public class BooksController : Controller
+    public class BooksController : BaseApiController
     {
-
-        public BooksController()
-        {
-
-        }
 
         /// <summary>
         /// Gets all books (paged)
@@ -21,16 +18,16 @@ namespace Narato.Libraries.POC.API.Controllers
         /// <param name="page">which page to get</param>
         /// <param name="pagesize">how many items per page</param>
         /// <returns>a paged list of books</returns>
-        [ProducesResponseType(typeof(Paged<BookDto>), (int)System.Net.HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(Paged<BookListDTO>), (int)System.Net.HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ErrorContent), (int)System.Net.HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(ErrorContent), (int)System.Net.HttpStatusCode.InternalServerError)]
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pagesize = 10)
         {
-            //var pagedBooks = await _bookManager.GetAllBooksAsync(page, pagesize);
-            //var mappedPagedBooks = _mapper.Map<IEnumerable<BookDto>>(pagedBooks.Items);
-            //return Ok(new Paged<BookDto>(mappedPagedBooks, page, pagesize, pagedBooks.Total));
-            return Ok();
+            var req = new FindBooksRequest(){Page = page, PageSize = pagesize };
+            var res = await HandleUseCase<FindBooksRequest, FindBooksResponse>(req);
+
+            return Ok(new Paged<BookListDTO>(res.BooksList, res.Currentpage, res.PageSize, res.RecordsTotal));
         }
 
         /// <summary>
@@ -38,15 +35,16 @@ namespace Narato.Libraries.POC.API.Controllers
         /// </summary>
         /// <param name="id">the Id of the book</param>
         /// <returns>the Book with the given Id</returns>
-        [ProducesResponseType(typeof(BookDto), (int)System.Net.HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(BookDTO), (int)System.Net.HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ErrorContent), (int)System.Net.HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(ErrorContent), (int)System.Net.HttpStatusCode.InternalServerError)]
         [HttpGet("{id}", Name = "GetBookById")]
         public async Task<IActionResult> GetById(Guid id)
         {
-            //var book = await _bookManager.GetBookByIdAsync(id);
-            //return Ok(_mapper.Map<BookDto>(book));
-            return Ok();
+            var req = new GetBookByIDRequest() { Id = id };
+            var res = await HandleUseCase<GetBookByIDRequest, GetBookByIDResponse>(req);
+
+            return Ok(res.Book);
         }
 
         /// <summary>
@@ -54,16 +52,16 @@ namespace Narato.Libraries.POC.API.Controllers
         /// </summary>
         /// <param name="book">the book to create</param>
         /// <returns>the newly created book, or a list of validation errors</returns>
-        [ProducesResponseType(typeof(BookDto), (int)System.Net.HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(BookDTO), (int)System.Net.HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ValidationErrorContent<string>), (int)System.Net.HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(ErrorContent), (int)System.Net.HttpStatusCode.InternalServerError)]
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] BookDto book)
+        public async Task<IActionResult> Create([FromBody] BookDTO book)
         {
-            //var businessBook = _mapper.Map<Book>(book);
-            //var createdBook = await _bookManager.CreateBookAsync(businessBook);
-            //return CreatedAtRoute("GetBookById", new { Id = createdBook.Id }, _mapper.Map<BookDto>(createdBook));
-            return Ok();
+            var req = new CreateBookRequest(){Book = book};
+            var res = await HandleUseCase<CreateBookRequest, CreateBookResponse>(req);
+
+            return Ok(res.Book);
         }
 
         /// <summary>
@@ -72,17 +70,17 @@ namespace Narato.Libraries.POC.API.Controllers
         /// <param name="id">the Id of the book to update</param>
         /// <param name="book">the book to update</param>
         /// <returns>the updated book, or a list of validation errors</returns>
-        [ProducesResponseType(typeof(BookDto), (int)System.Net.HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(BookDTO), (int)System.Net.HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ValidationErrorContent<string>), (int)System.Net.HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(ErrorContent), (int)System.Net.HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(ErrorContent), (int)System.Net.HttpStatusCode.InternalServerError)]
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] BookDto book)
+        public async Task<IActionResult> Update(Guid id, [FromBody] BookDTO book)
         {
-            //var businessBook = _mapper.Map<Book>(book);
-            //var updatedBook = await _bookManager.UpdateBookAsync(id, businessBook);
-            //return Ok(_mapper.Map<BookDto>(updatedBook));
-            return Ok();
+            var req = new UpdateBookRequest() { Book = book };
+            var res = await HandleUseCase<UpdateBookRequest, UpdateBookResponse>(req);
+
+            return Ok(res.Book);
         }
 
         /// <summary>
@@ -97,8 +95,9 @@ namespace Narato.Libraries.POC.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            //await _bookManager.DeleteBookAsync(id);
-            //return NoContent();
+            var req = new DeleteBookRequest() { Id = id };
+            await HandleUseCase<DeleteBookRequest, DeleteBookResponse>(req);
+
             return Ok();
         }
     }

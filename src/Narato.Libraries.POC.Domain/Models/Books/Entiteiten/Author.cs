@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using Narato.Libraries.POC.Domain.Common;
 
-namespace Narato.Libraries.POC.Domain.Models
+namespace Narato.Libraries.POC.Domain.Models.Books
 {
     public class Author: Entity<Guid>
     {
@@ -11,6 +10,8 @@ namespace Narato.Libraries.POC.Domain.Models
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
+
+        // Profile pic
 
         public string FullName => $"{FirstName} {LastName}";
 

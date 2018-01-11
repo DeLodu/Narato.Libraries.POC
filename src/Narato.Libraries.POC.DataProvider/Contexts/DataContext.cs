@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Narato.Libraries.POC.Domain.Contracts;
-using Narato.Libraries.POC.Domain.Models;
+using Narato.Libraries.POC.Domain.Models.Books;
 
 namespace Narato.Libraries.POC.DataProvider.Contexts
 {
@@ -58,7 +58,10 @@ namespace Narato.Libraries.POC.DataProvider.Contexts
         public async Task<IEnumerable<TEntity>> FindPagedAsync<TEntity>(int page = 0, int pagesize = 20, Dictionary<string, string> parameters = null)
             where TEntity : class
         {
-            var query = Set<TEntity>().Skip(pagesize * page).Take(pagesize);
+            var query = Set<TEntity>()
+                .AsNoTracking()
+                .Skip(pagesize * page)
+                .Take(pagesize);
 
             if (parameters != null)
             {

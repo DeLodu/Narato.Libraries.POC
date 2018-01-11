@@ -1,5 +1,4 @@
 ﻿using Moq;
-using Narato.Libraries.POC.Domain.Contracts.DataProviders;
 using Xunit;
 //using Narato.Libraries.POC.Domain.Managers;
 using System;
