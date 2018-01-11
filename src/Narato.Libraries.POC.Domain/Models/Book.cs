@@ -3,10 +3,8 @@ using Narato.Libraries.POC.Domain.Common;
 
 namespace Narato.Libraries.POC.Domain.Models
 {
-    public class Book //: Entity<Guid>
+    public class Book: Entity<Guid>
     {
-
-        public Guid Id { get; set; }
 
         public string Title { get; set; }
 
