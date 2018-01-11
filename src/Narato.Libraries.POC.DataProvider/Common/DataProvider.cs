@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Narato.Libraries.POC.DataProvider.Contexts;
 using Narato.Libraries.POC.Domain.Common;
-using Narato.Libraries.POC.Domain.Contracts;
 
 namespace Narato.Libraries.POC.DataProvider.Common
 {
@@ -10,16 +10,16 @@ namespace Narato.Libraries.POC.DataProvider.Common
         where TEntity : Entity<TKey>
     {
 
-        protected readonly IDataContext DataContext;
+        protected readonly DataContext DataContext;
 
-        protected internal DataProvider(IDataContext dataContext)
+        protected internal DataProvider(DataContext dataContext)
         {
             DataContext = dataContext;
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync(Pager pager)
         {
-            return await DataContext.FindPagedAsync<TEntity>(pager.page, pager.pagesize, null);
+            return await DataContext.FindPagedAsync<TEntity>(pager.Page, pager.Pagesize, null);
         }
 
         public async Task<Pager> CountAllAsync(int page, int pagesize)

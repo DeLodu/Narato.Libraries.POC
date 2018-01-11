@@ -11,13 +11,17 @@
             // set pagenumber
             if (pagesize * page > records)
                 page = 0;
+
+            Page = page;
+            Pagesize = pagesize;
+            Records = records;
         }
 
 
-        public int page { get; }
+        public int Page { get; }
 
-        public int pagesize { get; }
+        public int Pagesize { get; }
 
-        public int records { get;  }
+        public int Records { get;  }
     }
 }

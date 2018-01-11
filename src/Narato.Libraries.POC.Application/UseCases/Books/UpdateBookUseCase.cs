@@ -30,13 +30,16 @@ namespace Narato.Libraries.POC.Application.UseCases
             book.Summary = request.Book.Summary;
             book.Pages = request.Book.Pages;
 
-            var author = await _authorDataProvider.GetByIdAsync(request.Book.AuthorId);
+            if (request.Book.AuthorId != Guid.Empty)
+            {
+                var author = await _authorDataProvider.GetByIdAsync(request.Book.AuthorId);
 
-            if(author == null)
-                throw new Exception("Author not found!");
+                if (author == null)
+                    throw new Exception("Author not found!");
 
-            book.Author = author;
-
+                book.Author = author;
+            }
+            
             // Commit changes
             await _bookDataProvider.Commit();
 
@@ -48,7 +51,7 @@ namespace Narato.Libraries.POC.Application.UseCases
                     Title = book.Title,
                     Summary = book.Summary,
                     Pages = book.Pages,
-                    AuthorId = book.Author.Id,
+                    AuthorId = book.Author?.Id ?? Guid.Empty,
                 }
             };
         }

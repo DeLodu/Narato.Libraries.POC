@@ -31,7 +31,7 @@ namespace Narato.Libraries.POC.Application.UseCases.Books
                     Title = book.Title,
                     Summary = book.Summary,
                     Pages = book.Pages,
-                    AuthorId = book.Author.Id,
+                    AuthorId = book.Author?.Id ?? Guid.Empty,
                 }
             };
 

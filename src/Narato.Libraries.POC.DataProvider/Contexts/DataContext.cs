@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Narato.Libraries.POC.Domain.Contracts;
 using Narato.Libraries.POC.Domain.Models.Books;
 
 namespace Narato.Libraries.POC.DataProvider.Contexts
 {
-    public class DataContext : DbContext , IDataContext
+    public class DataContext : DbContext
     {
         public DataContext(DbContextOptions options) : base(options) { }
 
@@ -28,8 +28,7 @@ namespace Narato.Libraries.POC.DataProvider.Contexts
 
             modelBuilder.Entity<Book>()
                 .HasOne(x => x.Author)
-                .WithMany(x => x.Books)
-                .HasForeignKey(x => x.AuthorID);
+                .WithMany(x => x.Books);
 
         }
 
@@ -88,7 +87,15 @@ namespace Narato.Libraries.POC.DataProvider.Contexts
 
         public async Task CommitAsync()
         {
-            await SaveChangesAsync();
+            try
+            {
+                await SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
         }
 
         #endregion

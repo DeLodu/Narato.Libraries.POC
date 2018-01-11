@@ -21,19 +21,20 @@ namespace Narato.Libraries.POC.Application.UseCases.Books
 
         public override async Task<CreateBookResponse> Execute(CreateBookRequest request)
         {
-            // lookup author
-            var author = await _authorDataProvider.GetByIdAsync(request.Book.AuthorId);
-            
-            if(author == null)
-                throw new Exception("Author not found!");
-
             var newbook = new Book(request.Book.Title)
             {
                 Pages = request.Book.Pages,
                 Summary = request.Book.Summary,
-                Author = author
             };
 
+            // if author 
+            if (request.Book.AuthorId != Guid.Empty)
+            {
+                // lookup author
+                var author = await _authorDataProvider.GetByIdAsync(request.Book.AuthorId);
+                newbook.Author = author ?? throw new Exception("Author not found!");
+            }
+            
             // Add tot DB
             _bookDataProvider.AddNew(newbook);
 
@@ -49,7 +50,7 @@ namespace Narato.Libraries.POC.Application.UseCases.Books
                     Title = newbook.Title,
                     Summary = newbook.Summary,
                     Pages = newbook.Pages,
-                    AuthorId = newbook.Author.Id
+                    AuthorId = newbook.Author?.Id ?? Guid.Empty
                 }
             };
         }

@@ -5,7 +5,7 @@ namespace Narato.Libraries.POC.Domain.Models.Books
 {
     public class Book: Entity<Guid>
     {
-        protected Book() { }
+        public Book() { }
 
         public Book(string title)
         {
@@ -23,9 +23,7 @@ namespace Narato.Libraries.POC.Domain.Models.Books
 
         // Cover Pic
 
-        public virtual Guid AuthorID { get; set; }
-   
-        public virtual Author Author { get; set; }
+        public virtual Author Author { get; set; } 
 
 
     }

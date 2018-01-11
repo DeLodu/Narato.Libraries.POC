@@ -28,16 +28,16 @@ namespace Narato.Libraries.POC.Application.UseCases.Books
                 {
                     Id = bk.Id,
                     Title = bk.Title,
-                    AuthorFullName = bk.Author.FullName
+                    AuthorFullName = bk.Author?.FullName
                 })
                 .ToList();
 
             return new FindBooksResponse()
             {
                 BooksList = bkLstDTO,
-                Currentpage = pager.page,
-                PageSize = pager.pagesize,
-                RecordsTotal = pager.records,
+                Currentpage = pager.Page,
+                PageSize = pager.Pagesize,
+                RecordsTotal = pager.Records,
             };
         }
     }

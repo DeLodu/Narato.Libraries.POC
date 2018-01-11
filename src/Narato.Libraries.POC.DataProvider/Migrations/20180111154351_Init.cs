@@ -26,7 +26,7 @@ namespace Narato.Libraries.POC.DataProvider.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    AuthorID = table.Column<Guid>(nullable: false),
+                    AuthorId = table.Column<Guid>(nullable: true),
                     Pages = table.Column<int>(nullable: false),
                     Summary = table.Column<string>(nullable: true),
                     Title = table.Column<string>(nullable: true)
@@ -35,17 +35,17 @@ namespace Narato.Libraries.POC.DataProvider.Migrations
                 {
                     table.PrimaryKey("PK_Books", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Books_Authors_AuthorID",
-                        column: x => x.AuthorID,
+                        name: "FK_Books_Authors_AuthorId",
+                        column: x => x.AuthorId,
                         principalTable: "Authors",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Books_AuthorID",
+                name: "IX_Books_AuthorId",
                 table: "Books",
-                column: "AuthorID");
+                column: "AuthorId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

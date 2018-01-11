@@ -20,7 +20,7 @@ namespace Narato.Libraries.POC.DataProvider.Migrations
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Narato.Libraries.POC.Domain.Models.Author", b =>
+            modelBuilder.Entity("Narato.Libraries.POC.Domain.Models.Books.Author", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -34,12 +34,12 @@ namespace Narato.Libraries.POC.DataProvider.Migrations
                     b.ToTable("Authors");
                 });
 
-            modelBuilder.Entity("Narato.Libraries.POC.Domain.Models.Book", b =>
+            modelBuilder.Entity("Narato.Libraries.POC.Domain.Models.Books.Book", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("AuthorID");
+                    b.Property<Guid?>("AuthorId");
 
                     b.Property<int>("Pages");
 
@@ -49,17 +49,16 @@ namespace Narato.Libraries.POC.DataProvider.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorID");
+                    b.HasIndex("AuthorId");
 
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("Narato.Libraries.POC.Domain.Models.Book", b =>
+            modelBuilder.Entity("Narato.Libraries.POC.Domain.Models.Books.Book", b =>
                 {
-                    b.HasOne("Narato.Libraries.POC.Domain.Models.Author", "Author")
+                    b.HasOne("Narato.Libraries.POC.Domain.Models.Books.Author", "Author")
                         .WithMany("Books")
-                        .HasForeignKey("AuthorID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AuthorId");
                 });
 #pragma warning restore 612, 618
         }

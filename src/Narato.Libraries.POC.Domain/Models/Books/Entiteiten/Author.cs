@@ -15,6 +15,6 @@ namespace Narato.Libraries.POC.Domain.Models.Books
 
         public string FullName => $"{FirstName} {LastName}";
 
-        public virtual ICollection<Book> Books { get; set; }
+        public ICollection<Book> Books { get; set; } = new List<Book>();
     }
 }

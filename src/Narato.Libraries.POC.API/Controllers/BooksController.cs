@@ -53,7 +53,7 @@ namespace Narato.Libraries.POC.API.Controllers
         /// <param name="book">the book to create</param>
         /// <returns>the newly created book, or a list of validation errors</returns>
         [ProducesResponseType(typeof(BookDTO), (int)System.Net.HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(ValidationErrorContent<string>), (int)System.Net.HttpStatusCode.BadRequest)]
+        //[ProducesResponseType(typeof(ValidationErrorContent<string>), (int)System.Net.HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(ErrorContent), (int)System.Net.HttpStatusCode.InternalServerError)]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] BookDTO book)
@@ -71,13 +71,13 @@ namespace Narato.Libraries.POC.API.Controllers
         /// <param name="book">the book to update</param>
         /// <returns>the updated book, or a list of validation errors</returns>
         [ProducesResponseType(typeof(BookDTO), (int)System.Net.HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(ValidationErrorContent<string>), (int)System.Net.HttpStatusCode.BadRequest)]
+        //[ProducesResponseType(typeof(ValidationErrorContent<string>), (int)System.Net.HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(ErrorContent), (int)System.Net.HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(ErrorContent), (int)System.Net.HttpStatusCode.InternalServerError)]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(Guid id, [FromBody] BookDTO book)
         {
-            var req = new UpdateBookRequest() { Book = book };
+            var req = new UpdateBookRequest() { Book = book, Id = id};
             var res = await HandleUseCase<UpdateBookRequest, UpdateBookResponse>(req);
 
             return Ok(res.Book);
@@ -98,7 +98,7 @@ namespace Narato.Libraries.POC.API.Controllers
             var req = new DeleteBookRequest() { Id = id };
             await HandleUseCase<DeleteBookRequest, DeleteBookResponse>(req);
 
-            return Ok();
+            return NoContent();
         }
     }
 }
