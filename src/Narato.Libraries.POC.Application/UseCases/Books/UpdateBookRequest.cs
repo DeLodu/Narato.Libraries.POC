@@ -1,5 +1,4 @@
 ﻿using System;
-using Narato.Libraries.POC.Contracts.DTO;
 
 namespace Narato.Libraries.POC.Application.UseCases.Books
 {
@@ -7,6 +6,12 @@ namespace Narato.Libraries.POC.Application.UseCases.Books
     {
         public Guid Id { get; set; }
 
-        public BookDTO Book { get; set; }
+        public string Title { get; set; }
+
+        public int Pages { get; set; }
+
+        public string Summary { get; set; }
+
+        public Guid AuthorId { get; set; }
     }
 }

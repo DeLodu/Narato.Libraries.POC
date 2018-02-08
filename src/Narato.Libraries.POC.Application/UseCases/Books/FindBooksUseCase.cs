@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Narato.Libraries.POC.Application.Common;
-using Narato.Libraries.POC.Contracts.DTO;
 using Narato.Libraries.POC.Domain.Models.Books;
 
 namespace Narato.Libraries.POC.Application.UseCases.Books

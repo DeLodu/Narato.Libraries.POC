@@ -16,7 +16,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Narato.Libraries.POC.Application\Narato.Libraries.POC.Application.csproj" />
-    <ProjectReference Include="..\Narato.Libraries.POC.Contracts\Narato.Libraries.POC.Contracts.csproj" />
     <ProjectReference Include="..\Narato.Libraries.POC.DataProvider\Narato.Libraries.POC.DataProvider.csproj" />
   </ItemGroup>
   <ItemGroup>

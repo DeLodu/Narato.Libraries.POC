@@ -1,6 +1,5 @@
 ﻿using Moq;
 using Xunit;
-//using Narato.Libraries.POC.Domain.Managers;
 using System;
 using Narato.ResponseMiddleware.Models.Exceptions;
 using System.Linq;

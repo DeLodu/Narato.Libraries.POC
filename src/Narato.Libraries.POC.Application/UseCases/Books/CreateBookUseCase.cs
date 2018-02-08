@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Narato.Libraries.POC.Application.Common;
-using Narato.Libraries.POC.Contracts.DTO;
 using Narato.Libraries.POC.Domain.Models.Books;
 
 namespace Narato.Libraries.POC.Application.UseCases.Books
@@ -21,17 +20,17 @@ namespace Narato.Libraries.POC.Application.UseCases.Books
 
         public override async Task<CreateBookResponse> Execute(CreateBookRequest request)
         {
-            var newbook = new Book(request.Book.Title)
+            var newbook = new Book(request.Title)
             {
-                Pages = request.Book.Pages,
-                Summary = request.Book.Summary,
+                Pages = request.Pages,
+                Summary = request.Summary,
             };
 
             // if author 
-            if (request.Book.AuthorId != Guid.Empty)
+            if (request.AuthorId != Guid.Empty)
             {
                 // lookup author
-                var author = await _authorDataProvider.GetByIdAsync(request.Book.AuthorId);
+                var author = await _authorDataProvider.GetByIdAsync(request.AuthorId);
                 newbook.Author = author ?? throw new Exception("Author not found!");
             }
             
@@ -44,14 +43,11 @@ namespace Narato.Libraries.POC.Application.UseCases.Books
             // return bookDTO
             return new CreateBookResponse()
             {
-                Book = new BookDTO()
-                {
-                    Id = newbook.Id,
-                    Title = newbook.Title,
-                    Summary = newbook.Summary,
-                    Pages = newbook.Pages,
-                    AuthorId = newbook.Author?.Id ?? Guid.Empty
-                }
+                Id = newbook.Id,
+                Title = newbook.Title,
+                Summary = newbook.Summary,
+                Pages = newbook.Pages,
+                AuthorId = newbook.Author?.Id ?? Guid.Empty
             };
         }
     }

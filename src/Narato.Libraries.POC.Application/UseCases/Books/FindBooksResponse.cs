@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Narato.Libraries.POC.Contracts.DTO;
 
 namespace Narato.Libraries.POC.Application.UseCases.Books
 {

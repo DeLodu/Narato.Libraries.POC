@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Narato.Libraries.POC.Application.Common;
-using Narato.Libraries.POC.Contracts.DTO;
 using Narato.Libraries.POC.Domain.Models.Books;
 
 namespace Narato.Libraries.POC.Application.UseCases.Books
@@ -25,14 +24,11 @@ namespace Narato.Libraries.POC.Application.UseCases.Books
 
             return new GetBookByIDResponse()
             {
-                Book = new BookDTO()
-                {
-                    Id = book.Id,
-                    Title = book.Title,
-                    Summary = book.Summary,
-                    Pages = book.Pages,
-                    AuthorId = book.Author?.Id ?? Guid.Empty,
-                }
+                Id = book.Id,
+                Title = book.Title,
+                Summary = book.Summary,
+                Pages = book.Pages,
+                AuthorId = book.Author?.Id ?? Guid.Empty,
             };
 
         }
