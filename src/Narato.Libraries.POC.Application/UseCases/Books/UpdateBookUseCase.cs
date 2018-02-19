@@ -20,7 +20,7 @@ namespace Narato.Libraries.POC.Application.UseCases
         public override async Task<UpdateBookResponse> Execute(UpdateBookRequest request)
         {
             // Get book
-            var book = await _bookDataProvider.GetByIdAsync(request.Id);
+            var book = await _bookDataProvider.GetById(request.Id);
 
             if(book == null)
                 throw new Exception("Book not found!");
@@ -31,7 +31,7 @@ namespace Narato.Libraries.POC.Application.UseCases
 
             if (request.AuthorId != Guid.Empty)
             {
-                var author = await _authorDataProvider.GetByIdAsync(request.AuthorId);
+                var author = await _authorDataProvider.GetById(request.AuthorId);
 
                 if (author == null)
                     throw new Exception("Author not found!");

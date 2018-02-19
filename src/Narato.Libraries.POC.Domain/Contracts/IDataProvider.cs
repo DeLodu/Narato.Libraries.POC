@@ -6,11 +6,13 @@ namespace Narato.Libraries.POC.Domain.Common
 {
     public interface IDataProvider<TEntity,TKey>
     {
-        Task<IEnumerable<TEntity>> GetAllAsync(Pager pager);
+        Task<IEnumerable<TEntity>> Find(Predicate<TEntity> predicate, Pager pager);
 
-        Task<Pager> CountAllAsync(int page, int pagesize);
+        Task<TEntity> FindFirst(Predicate<TEntity> predicate);
+            
+        Task<Pager> Count(Predicate<TEntity> predicate, int page, int pagesize);
 
-        Task<TEntity> GetByIdAsync(TKey id);
+        Task<TEntity> GetById(TKey id);
 
         void AddNew(TEntity book);
 

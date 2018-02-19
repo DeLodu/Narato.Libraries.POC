@@ -17,10 +17,10 @@ namespace Narato.Libraries.POC.Application.UseCases.Books
         public override async Task<FindBooksResponse> Execute(FindBooksRequest request)
         {
             // aantal Records
-            var pager = await _bookDataProvider.CountAllAsync(request.Page, request.PageSize);
+            var pager = await _bookDataProvider.Count(x => true, request.Page, request.PageSize);
 
             // List books
-            var books = await _bookDataProvider.GetAllAsync(pager);
+            var books = await _bookDataProvider.Find(x => true, pager);
             
             // to DTO
             var bkLstDTO = books.Select(bk => new BookListDTO()

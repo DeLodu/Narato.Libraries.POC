@@ -18,7 +18,7 @@ namespace Narato.Libraries.POC.Application.UseCases.Books
         public override async Task<DeleteBookResponse> Execute(DeleteBookRequest request)
         {
             // Get book
-            var book = await _bookDataProvider.GetByIdAsync(request.Id);
+            var book = await _bookDataProvider.GetById(request.Id);
 
             if(book == null)
                 throw new Exception("Book already Deleted!");

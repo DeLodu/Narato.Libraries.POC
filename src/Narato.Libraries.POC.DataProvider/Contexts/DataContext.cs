@@ -48,13 +48,13 @@ namespace Narato.Libraries.POC.DataProvider.Contexts
             Entry<TEntity>(entity).State = EntityState.Deleted;
         }
 
-        public async Task<TEntity> GetByIDAsync<TEntity, TKey>(TKey id)
+        public async Task<TEntity> GetByID<TEntity, TKey>(TKey id)
             where TEntity : class
         {
             return await FindAsync<TEntity>(id);
         }
 
-        public async Task<IEnumerable<TEntity>> FindPagedAsync<TEntity>(int page = 0, int pagesize = 20, Dictionary<string, string> parameters = null)
+        public async Task<IEnumerable<TEntity>> FindPagedAsync<TEntity>(Predicate<TEntity> predicate, int page = 0, int pagesize = 20 )
             where TEntity : class
         {
             var query = Set<TEntity>()
@@ -62,30 +62,22 @@ namespace Narato.Libraries.POC.DataProvider.Contexts
                 .Skip(pagesize * page)
                 .Take(pagesize);
 
-            if (parameters != null)
-            {
-                //query = query.Where(x => );
-                // filter query
-            }
-
-            return await query.ToListAsync();
+            return await query.Where(x => predicate(x)).ToListAsync();
         }
 
-        public async Task<int> CountAsync<TEntity>(Dictionary<string, string> parameters)
+        public async Task<TEntity> FindFirst<TEntity>(Predicate<TEntity> predicate)
             where TEntity : class
         {
-            var query = Set<TEntity>();
-
-            if (parameters != null)
-            {
-                //query = query.Where(x => );
-                // filter query
-            }
-
-            return await query.CountAsync();
+            return await Set<TEntity>().FirstOrDefaultAsync(x => predicate(x));
         }
 
-        public async Task CommitAsync()
+        public async Task<int> Count<TEntity>(Predicate<TEntity> predicate)
+            where TEntity : class
+        {
+            return await Set<TEntity>().AsQueryable().Where(x => predicate(x)).CountAsync();
+        }
+
+        public async Task Commit()
         {
             try
             {

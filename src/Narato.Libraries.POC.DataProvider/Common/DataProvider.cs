@@ -17,21 +17,26 @@ namespace Narato.Libraries.POC.DataProvider.Common
             DataContext = dataContext;
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync(Pager pager)
+        public async Task<IEnumerable<TEntity>> Find(Predicate<TEntity> predicate, Pager pager)
         {
-            return await DataContext.FindPagedAsync<TEntity>(pager.Page, pager.Pagesize, null);
+            return await DataContext.FindPagedAsync<TEntity>(predicate , pager.Page, pager.Pagesize);
         }
 
-        public async Task<Pager> CountAllAsync(int page, int pagesize)
+        public async Task<TEntity> FindFirst(Predicate<TEntity> predicate)
         {
-            var records = await DataContext.CountAsync<TEntity>(null);
+            return await DataContext.FindFirst<TEntity>(predicate);
+        }
+
+        public async Task<Pager> Count(Predicate<TEntity> predicate, int page, int pagesize)
+        {
+            var records = await DataContext.Count<TEntity>(predicate);
 
             return new Pager(page, pagesize, records);
         }
 
-        public async Task<TEntity> GetByIdAsync(TKey id)
+        public async Task<TEntity> GetById(TKey id)
         {
-            return await DataContext.GetByIDAsync<TEntity, TKey>(id);
+            return await DataContext.GetByID<TEntity, TKey>(id);
         }
 
         public void AddNew(TEntity entity)
@@ -46,7 +51,7 @@ namespace Narato.Libraries.POC.DataProvider.Common
 
         public async Task Commit()
         {
-            await DataContext.CommitAsync();
+            await DataContext.Commit();
         }
     }
 }

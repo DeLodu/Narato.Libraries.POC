@@ -8,7 +8,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Narato.Libraries.POC.Domain\Narato.Libraries.POC.Domain.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UseCases\Author\" />
-  </ItemGroup>
 </Project>

@@ -30,7 +30,7 @@ namespace Narato.Libraries.POC.Application.UseCases.Books
             if (request.AuthorId != Guid.Empty)
             {
                 // lookup author
-                var author = await _authorDataProvider.GetByIdAsync(request.AuthorId);
+                var author = await _authorDataProvider.GetById(request.AuthorId);
                 newbook.Author = author ?? throw new Exception("Author not found!");
             }
             
